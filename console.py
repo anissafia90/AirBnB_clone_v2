@@ -114,10 +114,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
    def do_create(self, args):
-    """ Create an object of any class with given parameters"""
-    if not args:
-        print("** class name missing **")
-        return
+       """ Create an object of any class with given parameters"""
+       if not args:
+           print("** class name missing **")
+           return
 
     arg_list = args.split()
     class_name = arg_list[0]
