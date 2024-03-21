@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
             print('(hbnb) ', end='')
-        return stop
+            return stop
 
     def do_quit(self, command):
         """ Method to exit the HBNB console"""
