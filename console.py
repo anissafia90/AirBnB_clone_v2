@@ -113,86 +113,17 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-   def do_create(self, args):
-    """ Create an object of any class with given parameters"""
-    if not args:
-        print("** class name missing **")
-        return
-
-    arg_list = args.split()
-    class_name = arg_list[0]
-
-    if class_name not in self.classes:
-        print("** class doesn't exist **")
-        return
-
-    # Remove class_name from arg_list
-    arg_list.pop(0)
-
-    # Create dictionary to store parameters
-    params = {}
-
-    # Parse parameters
-    for arg in arg_list:
-        key, value = arg.split('=')
-        params[key] = value
-
-    # Create an instance of the specified class with given parameters
-    new_instance = self.classes[class_name](**params)
-    print(new_instance.id)
-    storage.save()
-   
-    def help_create(self):
-        """ Help information for the create method """
-        print("Creates a class of any type")
-        print("[Usage]: create <className>\n")
-
-    def do_show(self, args):
-        """ Method to show an individual object """
-        new = args.partition(" ")
-        c_name = new[0]
-        c_id = new[2]
-
-        # guard against trailing args
-        if c_id and ' ' in c_id:
-            c_id = c_id.partition(' ')[0]
-
-        if not c_name:
+    def do_create(self, args):
+        """ Create an object of any class with given parameters"""
+        if not args:
             print("** class name missing **")
             return
 
-        if c_name not in HBNBCommand.classes:
+        arg_list = args.split()
+        class_name = arg_list[0]
+
+        if class_name not in self.classes:
             print("** class doesn't exist **")
             return
 
-        if not c_id:
-            print("** instance id missing **")
-            return
-
-        key = c_name + "." + c_id
-        try:
-            print(storage._FileStorage__objects[key])
-        except KeyError:
-            print("** no instance found **")
-
-    def help_show(self):
-        """ Help information for the show command """
-        print("Shows an individual instance of a class")
-        print("[Usage]: show <className> <objectId>\n")
-
-    def do_destroy(self, args):
-        """ Destroys a specified object """
-        new = args.partition(" ")
-        c_name = new[0]
-        c_id = new[2]
-        if c_id and ' ' in c_id:
-            c_id = c_id.partition(' ')[0]
-
-        if not c_name:
-            print("** class name missing **")
-            return
-
-        if c_name not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-
+        # Remove class_name from arg_l
