@@ -113,56 +113,35 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
-    def do_create(self, args):
-        """ Create an object of any class with given parameters"""
-        if not args:
-            print("** class name missing **")
-            return
+   def do_create(self, args):
+    """ Create an object of any class with given parameters"""
+    if not args:
+        print("** class name missing **")
+        return
 
-        arg_list = args.split()
-        class_name = arg_list[0]
+    arg_list = args.split()
+    class_name = arg_list[0]
 
-        if class_name not in self.classes:
-            print("** class doesn't exist **")
-            return
+    if class_name not in self.classes:
+        print("** class doesn't exist **")
+        return
 
-        # Remove class_name from arg_list
-        arg_list.pop(0)
+    # Remove class_name from arg_list
+    arg_list.pop(0)
 
-        # Create dictionary to store parameters
-        params = {}
+    # Create dictionary to store parameters
+    params = {}
 
-        # Parse parameters
-        for arg in arg_list:
-            key_value = arg.split('=')
-            if len(key_value) != 2:
-                print("** Invalid parameter format: '{}' **".format(arg))
-                return
-            key = key_value[0]
-            value = key_value[1]
+    # Parse parameters
+    for arg in arg_list:
+        key, value = arg.split('=')
+        params[key] = value
 
-            # Handle special cases for string, float, and integer values
-            if value.startswith('"') and value.endswith('"'):
-                value = value[1:-1].replace('_', ' ')
-            elif '.' in value:
-                try:
-                    value = float(value)
-                except ValueError:
-                    print("** Invalid parameter format: '{}' **".format(arg))
-                    return
-            else:
-                try:
-                    value = int(value)
-                except ValueError:
-                    print("** Invalid parameter format: '{}' **".format(arg))
-                    return
+    # Create an instance of the specified class with given parameters
+    new_instance = self.classes[class_name](**params)
+    print(new_instance.id)
+    storage.save()
 
-            params[key] = value
-
-        # Create an instance of the specified class with given parameters
-        new_instance = self.classes[class_name](**params)
-        print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
